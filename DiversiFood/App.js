@@ -126,9 +126,9 @@ const HomeScreenNavigator = ({ navigation }) => {
               color: '#fff'
             },
             headerBackTitleStyle: {
-              color: `${inactiveColor}`
+              color: `${tabcolor}`
             },
-            headerTintColor: `${inactiveColor}`,
+            headerTintColor: `${tabcolor}`,
           }}/>
     </Home.Navigator>
   );
