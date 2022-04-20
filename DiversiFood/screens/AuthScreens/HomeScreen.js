@@ -45,7 +45,7 @@ const calorieData = {
     },
   ],
 };
-export default function App() {
+export default function App({navigation}) {
 
   const [popular, setPopular] = React.useState(popular)
 
@@ -111,7 +111,7 @@ export default function App() {
 
             {/* Header */}
             <View style={{marginTop: 10, width: '100%', alignItems: "flex-end", paddingHorizontal: 5}}>
-              <TouchableOpacity onPress={() => console.log("Pull up GoalsScreen")}
+              <TouchableOpacity onPress={() => navigation.navigate('Goals Screen')}
                                 style={{width: 35, height: 35, alignItems: 'center', justifyContent: 'center'}}>
                 <Image source={require('../../images/to-do-list.png')} resizeMode="contain" style={{flex: 1}}/>
               </TouchableOpacity> 

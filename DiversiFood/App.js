@@ -24,6 +24,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged} from "firebase/auth";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import Goals from "./screens/AuthScreens/GoalsScreen";
 
 let firebaseConfig = Firebasekeys;
 
@@ -113,8 +114,8 @@ const HomeScreenNavigator = ({ navigation }) => {
           headerTintColor: `${inactiveColor}`,
         }}
        />
-      <Home.Screen name="Pollen Heatmap" component={IngredientsScreen} options={{
-          title: 'Heatmap',
+      <Home.Screen name="Goals Screen" component={GoalsScreen} options={{
+          title: 'Set Your Goals',
           headerShown: true,
             headerStyle: {
               backgroundColor: `${themecolor}`
