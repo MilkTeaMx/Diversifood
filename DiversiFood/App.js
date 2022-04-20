@@ -13,7 +13,7 @@ import SplashScreen from "./screens/AuthScreens/SplashScreen";
 import LoginScreen from "./screens/AuthScreens/LoginScreen";
 import RegisterScreen from "./screens/AuthScreens/RegisterScreen";
 import GoalsScreen from './screens/AuthScreens/GoalsScreen';
-
+import VisualGoalsScreen from './screens/MainScreens/VisualGoalsScreen'
 
 import IngredientsScreen from './screens/MainScreens/IngredientsScreen'
 import Firebasekeys from "./config";
@@ -47,11 +47,11 @@ const IngredientsScreenNavigator = ({ navigation }) => {
           headerShown:false
         }}
       
-      initialRouteName="Ingredients"
+      initialRouteName="Visual Goals"
     > 
-      <Home.Screen name="Ingredients Screen" component={IngredientsScreen}
+      <Home.Screen name="Visual Goals" component={VisualGoalsScreen}
       options={{
-        title: 'Home',
+        title: 'Set Goals/Recipes',
         headerShown: true,
           headerStyle: {
             backgroundColor: `${themecolor}`
@@ -67,8 +67,8 @@ const IngredientsScreenNavigator = ({ navigation }) => {
           headerTintColor: `${inactiveColor}`,
         }}
        />
-      <Home.Screen name="Pollen Heatmap" component={IngredientsScreen} options={{
-          title: 'Heatmap',
+      <Home.Screen name="Ingredients Screen" component={IngredientsScreen} options={{
+          title: 'Ingredients Screen',
           headerShown: true,
             headerStyle: {
               backgroundColor: `${themecolor}`

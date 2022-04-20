@@ -5,7 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>My Home Screen!</Text>
+      <Text>My Ingredients Screen!</Text>
       <StatusBar style="auto" />
     </View>
   );

@@ -1,15 +1,45 @@
 import React, {useState} from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
+import { initializeApp } from "firebase/app";
+import {addDoc, getFirestore, collection, getDocs } from "firebase/firestore";
 import Task from '../../components/GoalsTask';
+import firebase from 'firebase/compat/app';
+import { initializeApp } from "firebase/app";
+import { getAuth, onAuthStateChanged} from "firebase/auth";
+import Firebasekeys from "./../../config";
+let firebaseConfig = Firebasekeys;
 
 export default function Goals() {
   const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
+  const [app, setApp] = useState();
 
+  if (!firebase.apps.length) {
+    const app = initializeApp(firebaseConfig);
+    setApp(app)
+  }
+  
+  // Initialize Cloud Firestore and get a reference to the service
+  const db = getFirestore(app);
+  const addDocument = () =>{
+    try {
+      const docRef = await addDoc(collection(db, "users"), {
+        first: "Alan",
+        middle: "Mathison",
+        last: "Turing",
+        born: 1912
+      });
+    
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  }
   const handleAddTask = () => {
+    console.log("entering")
     Keyboard.dismiss();
     setTaskItems([...taskItems, task])
-    setTask(null);
+    setTask(null)
   }
 
   const completeTask = (index) => {
@@ -53,7 +83,7 @@ export default function Goals() {
         style={styles.writeTaskWrapper}
       >
         <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
-        <TouchableOpacity onPress={() => handleAddTask()}>
+        <TouchableOpacity onPress={() => addDocument()}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
