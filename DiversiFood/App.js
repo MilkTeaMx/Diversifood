@@ -44,7 +44,7 @@ const IngredientsScreenNavigator = ({ navigation }) => {
         }}
       
       initialRouteName="Ingredients"
-    >
+    > 
       <Home.Screen name="Ingredients Screen" component={IngredientsScreen}
       options={{
         title: 'Home',
