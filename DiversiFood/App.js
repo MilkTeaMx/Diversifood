@@ -12,6 +12,9 @@ import HomeScreen from "./screens/AuthScreens/HomeScreen";
 import SplashScreen from "./screens/AuthScreens/SplashScreen";
 import LoginScreen from "./screens/AuthScreens/LoginScreen";
 import RegisterScreen from "./screens/AuthScreens/RegisterScreen";
+import GoalsScreen from './screens/AuthScreens/GoalsScreen';
+
+
 import IngredientsScreen from './screens/MainScreens/IngredientsScreen'
 import Firebasekeys from "./config";
 // import * as firebase from "firebase";
@@ -92,7 +95,7 @@ const HomeScreenNavigator = ({ navigation }) => {
       
       initialRouteName="Home Screen"
     >
-      <Home.Screen name="Home Screen" component={HomeScreen}
+      <Home.Screen name="Home Screen" component={HomeScreen} //change later
       options={{
         title: 'Home',
         headerShown: true,
