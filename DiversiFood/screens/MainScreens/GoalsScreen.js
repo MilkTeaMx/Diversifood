@@ -4,7 +4,6 @@ import { initializeApp } from "firebase/app";
 import {addDoc, getFirestore, collection, getDocs } from "firebase/firestore";
 import Task from '../../components/GoalsTask';
 import firebase from 'firebase/compat/app';
-import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged} from "firebase/auth";
 import Firebasekeys from "./../../config";
 let firebaseConfig = Firebasekeys;

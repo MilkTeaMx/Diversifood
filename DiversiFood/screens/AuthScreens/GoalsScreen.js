@@ -1,76 +1,91 @@
 import React, {useState} from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
+import { initializeApp } from "firebase/app";
+import {addDoc, getFirestore, collection, getDocs, setDoc, doc } from "firebase/firestore";
 import Task from '../../components/GoalsTask';
-
+import firebase from 'firebase/compat/app';
+import { getAuth, onAuthStateChanged} from "firebase/auth";
+import Firebasekeys from "./../../config";
+let firebaseConfig = Firebasekeys;
 
 export default function Goals() {
-  const [task, setTask] = useState({
-      task,
-  });
+  const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
-  const [counter, setCounter] = useState(0)
+  const [app, setApp] = useState();
 
+  // if (!firebase.apps.length) {
+  //   const app = initializeApp(firebaseConfig);
+  //   setApp(app)
+  // }
+  
+  // Initialize Cloud Firestore and get a reference to the service
+  const db = getFirestore(app);
+  const auth = getAuth();
+  const user = auth.currentUser;
+  console.log(user)
+  const updateDatabase = () =>{
+    console.log(user)
+    try {
+      
+      const docRef = setDoc(doc(db, "users", `${user.uid}`), {
+        Array: taskItems,
+      });
+    
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  }
   const handleAddTask = () => {
+    console.log("entering")
     Keyboard.dismiss();
     setTaskItems([...taskItems, task])
-    setTask(null);
-
-    if (counter >= 8) {
-        setCounter(0)
-    } else {
-        setCounter(counter + 1)
-    }
-
-   
+    setTask(null)
+    updateDatabase()
   }
 
   const completeTask = (index) => {
     let itemsCopy = [...taskItems];
     itemsCopy.splice(index, 1);
     setTaskItems(itemsCopy)
-  }
-
-  const incrementCounter = () => {
-    setCounter(counter + 1)
-
+    updateDatabase()
   }
 
   return (
-    <View style={styles.container}>
-      {/* Added this scroll view to enable scrolling when list gets longer than the page */}
+    <>
+
+      <View style={styles.container}>
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1
         }}
-        keyboardShouldPersistTaps='handled'
-      >
+        keyboardShouldPersistTaps='handled'>
 
+      
       {/* Today's Tasks */}
       <View style={styles.tasksWrapper}>
-        <Text style={styles.sectionTitle}>Nutritional Goals</Text>
+        <Text style={styles.sectionTitle}>Today's tasks</Text>
         <View style={styles.items}>
           {/* This is where the tasks will go! */}
           {
             taskItems.map((item, index) => {
               return (
                 <TouchableOpacity key={index}  onPress={() => completeTask(index)}>
-                  <Task text={item} i={counter} /> 
+                  <Task text={item} /> 
                 </TouchableOpacity>
               )
             })
           }
         </View>
       </View>
-        
-      </ScrollView>
-
-      {/* Write a task */}
+    
+      </ScrollView> 
       {/* Uses a keyboard avoiding view which ensures the keyboard does not cover the items on screen */}
       <KeyboardAvoidingView 
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.writeTaskWrapper}
       >
-        <TextInput style={styles.input} placeholder={'Write a Goal'} value={task} onChangeText={text => setTask(text)} />
+        <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
         <TouchableOpacity onPress={() => handleAddTask()}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
@@ -78,7 +93,9 @@ export default function Goals() {
         </TouchableOpacity>
       </KeyboardAvoidingView>
       
-    </View>
+      </View>
+    </>
+    
   );
 }
 
